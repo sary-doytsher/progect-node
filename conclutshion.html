@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תיעוד API - מערכת ניהול שעונים</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; direction: rtl; padding: 2%; }
+        h1, h2 { text-align: center; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #f4f4f4; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .english-text { direction: ltr; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>API Documentation - Clock & Order Management</h1>
+
+    <h2>שעונים (Clocks)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CRUD</th>
+                <th>כתובת</th>
+                <th>פרמטרים</th>
+                <th>Body (שדות)</th>
+                <th>מה עושה?</th>
+                <th>שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td><span class="english-text">api/clocks</span></td>
+                <td>-</td>
+                <td>-</td>
+                <td>שליפת כל קטלוג השעונים</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td><span class="english-text">api/clocks/:id</span></td>
+                <td><span class="english-text">id</span></td>
+                <td>-</td>
+                <td>שליפת פרטי שעון ספציפי</td>
+                <td>ID לא תקין / לא נמצא</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td><span class="english-text">api/clocks</span></td>
+                <td>-</td>
+                <td><span class="english-text">name, brand, price, stock, description, imagePath</span></td>
+                <td>הוספת שעון חדש למלאי</td>
+                <td>חסרים פרטי חובה</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td><span class="english-text">api/clocks/:id</span></td>
+                <td><span class="english-text">id</span></td>
+                <td><span class="english-text">name, brand, price, stock, description, imagePath</span></td>
+                <td>עדכון פרטי שעון קיים</td>
+                <td>ID לא תקין / לא נמצא</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td><span class="english-text">api/clocks/:id</span></td>
+                <td><span class="english-text">id</span></td>
+                <td>-</td>
+                <td>מחיקת שעון מהמערכת</td>
+                <td>ID לא תקין / לא נמצא</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>משתמשים (Users)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CRUD</th>
+                <th>כתובת</th>
+                <th>פרמטרים</th>
+                <th>Body (שדות)</th>
+                <th>מה עושה?</th>
+                <th>שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td><span class="english-text">api/users/login</span></td>
+                <td>-</td>
+                <td><span class="english-text">userName, password</span></td>
+                <td>התחברות למערכת</td>
+                <td>שם משתמש או סיסמה שגויים</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td><span class="english-text">api/users/register</span></td>
+                <td>-</td>
+                <td><span class="english-text">userName, password, email, role</span></td>
+                <td>רישום משתמש חדש</td>
+                <td>משתמש כבר קיים / חסרים פרטים</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td><span class="english-text">api/users/password/:id</span></td>
+                <td><span class="english-text">id</span></td>
+                <td><span class="english-text">password</span></td>
+                <td>עדכון סיסמת משתמש</td>
+                <td>ID לא נמצא / לא נשלחה סיסמה</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>הזמנות (Orders)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CRUD</th>
+                <th>כתובת</th>
+                <th>פרמטרים</th>
+                <th>Body (שדות)</th>
+                <th>מה עושה?</th>
+                <th>שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td><span class="english-text">api/orders</span></td>
+                <td>-</td>
+                <td><span class="english-text">userId, items: [{ clockId, quantity }]</span></td>
+                <td>יצירת הזמנה חדשה</td>
+                <td>מלאי חסר / חסרים פרטי משתמש</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td><span class="english-text">api/orders/user/:userId</span></td>
+                <td><span class="english-text">userId</span></td>
+                <td>-</td>
+                <td>צפייה בהיסטוריית הזמנות של משתמש</td>
+                <td>משתמש לא נמצא</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td><span class="english-text">api/orders/:id/status</span></td>
+                <td><span class="english-text">id</span></td>
+                <td><span class="english-text">status</span></td>
+                <td>עדכון סטטוס הזמנה (שולם/נשלח)</td>
+                <td>ID הזמנה לא תקין</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
