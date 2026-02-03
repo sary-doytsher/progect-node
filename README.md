@@ -1,65 +1,148 @@
-Clock & Order Management System 🕰️
-מערכת Backend לניהול מלאי שעונים, משתמשים והזמנות
-פרויקט סיום בקורס Node.js, המציג מערכת ניהול מלאה המבוססת על ארכיטקטורת MVC ומספקת ממשק API עשיר.
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock System API Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; direction: rtl; padding: 2%; }
+        h1, h2 { text-align: center; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #f4f4f4; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .method { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>תיעוד API - מערכת ניהול שעונים</h1>
 
-🚀 טכנולוגיות בשימוש
-Runtime: Node.js
+    <h2>שעונים (Clocks)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>URL</th>
+                <th>Parameters</th>
+                <th>Body</th>
+                <th>תיאור</th>
+                <th>שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="method">GET</td>
+                <td>/api/clocks</td>
+                <td>-</td>
+                <td>-</td>
+                <td>שליפת רשימת כל השעונים</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td class="method">GET</td>
+                <td>/api/clocks/:id</td>
+                <td>id</td>
+                <td>-</td>
+                <td>שליפת שעון לפי מזהה</td>
+                <td>Invalid ID, Not Found</td>
+            </tr>
+            <tr>
+                <td class="method">POST</td>
+                <td>/api/clocks</td>
+                <td>-</td>
+                <td>brand, model, price, stock, imagePath</td>
+                <td>הוספת שעון חדש למלאי</td>
+                <td>Missing fields, Validation error</td>
+            </tr>
+            <tr>
+                <td class="method">PUT</td>
+                <td>/api/clocks/:id</td>
+                <td>id</td>
+                <td>brand, model, price, stock, imagePath</td>
+                <td>עדכון פרטי שעון קיים</td>
+                <td>Invalid ID, Not Found</td>
+            </tr>
+        </tbody>
+    </table>
 
-Framework: Express.js
+    <h2>משתמשים (Users)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>URL</th>
+                <th>Parameters</th>
+                <th>Body</th>
+                <th>תיאור</th>
+                <th>שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="method">POST</td>
+                <td>/api/users/register</td>
+                <td>-</td>
+                <td>userName, email, password</td>
+                <td>רישום משתמש חדש</td>
+                <td>Missing fields, Email already exists</td>
+            </tr>
+            <tr>
+                <td class="method">POST</td>
+                <td>/api/users/login</td>
+                <td>-</td>
+                <td>userName, password</td>
+                <td>התחברות למערכת</td>
+                <td>Invalid credentials</td>
+            </tr>
+            <tr>
+                <td class="method">PUT</td>
+                <td>/api/users/password/:id</td>
+                <td>id</td>
+                <td>password</td>
+                <td>עדכון סיסמה למשתמש</td>
+                <td>Invalid ID, Missing password</td>
+            </tr>
+        </tbody>
+    </table>
 
-Database: MongoDB (Mongoose ODM)
-
-Security: Bcrypt.js להצפנת סיסמאות
-
-Architecture: MVC (Models, Views, Controllers)
-
-📁 מבנה הפרויקט
-models/ - הגדרת הסכימות של המידע (User, Clock, Order).
-
-controllers/ - הלוגיקה העסקית והטיפול בנתונים.
-
-routes/ - ניתוב הבקשות לפי נתיבי ה-API (Users, Clocks, Orders).
-
-app.js - קובץ השרת הראשי וחיבור למסד הנתונים.
-
-🛠 התקנה והרצה מקומית
-שכפלו את המאגר (Clone):
-
-Bash
-git clone <your-repository-link>
-התקינו את התלויות:
-
-Bash
-npm install
-הגדירו קובץ .env עם משתנה MONGO_URI.
-
-הריצו את השרת:
-
-Bash
-npm start
-📋 נקודות קצה (API Endpoints) - תמצית
-שעונים (Clocks)
-GET /api/clocks - שליפת כל השעונים.
-
-POST /api/clocks - הוספת שעון חדש (ניהול מלאי).
-
-PUT /api/clocks/:id - עדכון פרטי שעון.
-
-משתמשים (Users)
-POST /api/users/register - רישום משתמש חדש.
-
-POST /api/users/login - התחברות מאובטחת.
-
-PUT /api/users/password/:id - עדכון סיסמה.
-
-הזמנות (Orders)
-POST /api/orders - יצירת הזמנה חדשה.
-
-GET /api/orders/user/:userId - היסטוריית הזמנות למשתמש.
-
-PUT /api/orders/:id - עדכון סטטוס תשלום/הזמנה.
-
-הנחיות נוספות להגשה:
-קישור לרנדר (Render): [הוסיפי כאן את הקישור שקיבלת מרנדר]
-
-דף תיעוד (Documentation): מצורף כקובץ apiTables.html במאגר.git add .
+    <h2>הזמנות (Orders)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>URL</th>
+                <th>Parameters</th>
+                <th>Body</th>
+                <th>תיאור</th>
+                <th>שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="method">POST</td>
+                <td>/api/orders</td>
+                <td>-</td>
+                <td>userId, items: [{ clockId, quantity }]</td>
+                <td>יצירת הזמנה חדשה</td>
+                <td>Missing fields, Out of stock</td>
+            </tr>
+            <tr>
+                <td class="method">GET</td>
+                <td>/api/orders/user/:userId</td>
+                <td>userId</td>
+                <td>-</td>
+                <td>צפייה בהיסטוריית הזמנות של משתמש</td>
+                <td>User not found</td>
+            </tr>
+            <tr>
+                <td class="method">PUT</td>
+                <td>/api/orders/:id</td>
+                <td>id</td>
+                <td>status (paid/pending)</td>
+                <td>עדכון סטטוס תשלום/הזמנה</td>
+                <td>Invalid ID, Unauthorized</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
