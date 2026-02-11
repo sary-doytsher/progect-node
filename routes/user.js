@@ -6,14 +6,14 @@ const router = express.Router();
 // שליפת כל המשתמשים - GET api/users
 router.get('/', userController.getUsers);
 
-// שליפת משתמש לפי ID - GET api/users/:id
-router.get('/:id', userController.getUserById);
-
 // רישום משתמש חדש - POST api/users
 router.post('/', userController.register); // ודאי שיש פונקציית register בקונטרולר
 
-// התחברות - POST api/users/login
+// התחברות - POST api/users/login (חייב להיות לפני /:id)
 router.post('/login', userController.login);
+
+// שליפת משתמש לפי ID - GET api/users/:id
+router.get('/:id', userController.getUserById);
 
 // עדכון פרטי משתמש ללא סיסמה - PUT api/users/:id
 router.put('/:id', userController.updateUser);

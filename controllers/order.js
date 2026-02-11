@@ -52,7 +52,7 @@ export async function updatePaymentStatus(req, res) {
         let order = await orderModel.findById(orderId);
         if (!order) return res.status(404).json({ title: "הזמנה לא נמצאה", message: "לא קיימת הזמנה עם מזהה זה" });
 
-        order.status = status || 'paid'; 
+        order.status = status || 'pending'; 
         await order.save();
         return res.json(order);
     } catch (err) {

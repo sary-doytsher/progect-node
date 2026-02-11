@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { connect } from 'mongoose';
+import { connectToDB } from './config/db.js';
 
 // ייבוא ה-Routes שעדכנו קודם
 import clockRoutes from './routes/clock.js';
@@ -18,11 +18,7 @@ app.use(cors()); // מאפשר גישה מדפדפנים שונים
 app.use(express.json()); // מאפשר לשרת לקרוא נתוני JSON ב-Body של הבקשה
 
 // חיבור למסד הנתונים MongoDB
-const mongoURI = process.env.MONGO_URI || "your_mongodb_connection_string_here";
-
-connect(mongoURI)
-    .then(() => console.log("Successfully connected to MongoDB"))
-    .catch(err => console.error("Could not connect to MongoDB", err));
+connectToDB();
 
 /**
  * הגדרת הנתיבים הראשיים עם קידומת api
